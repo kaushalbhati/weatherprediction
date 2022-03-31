@@ -1,0 +1,10 @@
+server:  port: 9090
+eureka:  client:    serviceUrl:      defaultZone: http://localhost:8761/eureka/
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: weatherpredictionapp
+        uri: http://localhost:8082
+        predicates:
+        - Path=/oneweather/**      default-filters:        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin      globalcors:        cors-configurations:          '[/**]':              allowedOrigins: "*"              allowedMethods: "*"              allowedHeaders: "*"              application:    name: apigateway

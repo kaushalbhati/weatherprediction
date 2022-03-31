@@ -1,0 +1,47 @@
+package com.rule
+import com.example.demo.models.ForecastWeatherPredicInfo
+import com.example.demo.services.WeatherDroolsService
+
+global WeatherDroolsService WeatherDroolsService
+
+rule "Temp Decision > 30"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(maxtemp>30)
+	then
+		weatherObject.setDecision("Use sunscreen lotion");
+	end
+
+rule "Temp Decision < 30"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(maxtemp<30)
+	then
+		weatherObject.setDecision("enjoy sun");
+	end
+	
+rule "Rain Decision"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(main=="Rain")
+	then
+		weatherObject.setRaindecision("Carry Umbrella");
+	end
+
+rule "Rain Decision Clear"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(main=="Clear")
+	then
+		weatherObject.setRaindecision("Wear Cap");
+	end
+	
+rule "Wind Decision"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(windspeed>10)
+	then
+		weatherObject.setWinddecision("It’s too windy, watch out");
+	end
+
+rule "Wind Decision wind"
+	when 
+		weatherObject: ForecastWeatherPredicInfo(windspeed<10)
+	then
+		weatherObject.setWinddecision("no worries with wind");
+	end
